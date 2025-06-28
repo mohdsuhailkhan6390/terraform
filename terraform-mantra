@@ -1,0 +1,70 @@
+block parameter {
+arguments
+}
+
+
+what is block ?
+
+In Terraform, a block is a fundamental unit for defining and configuring aspects of your infrastructure, written in the HashiCorp Configuration Language (HCL).  
+Think of blocks as containers holding configurations for things like:
+Resources: Defining infrastructure components like servers, networks, or databases.
+Providers: Specifying the cloud platform or service you're working with (e.g., AWS, Azure).
+Variables: Declaring inputs to customize your infrastructure deployments.
+Modules: Encapsulating reusable sets of configurations for efficient management.
+Outputs: Defining what information is displayed after Terraform finishes executing. 
+Blocks help organize your infrastructure code and make it easier to manage and reuse. 
+
+
+what is parameter ?
+
+Input variables are like placeholders for values that you want to customize in your Terraform code, such as the size of a server or the name of a resource.
+They let you make your infrastructure flexible and reusable without changing the core code.
+You define them using the variable block and provide values during the terraform apply process
+
+also add example there
+In Terraform, a parameter generally refers to an input variable. These are like placeholders for values that you want to customize in your configuration. 
+Example:
+1. Define the variable in variables.tf:
+terraform
+variable "instance_type" {
+  description = "The type of instance to create"
+  type        = string
+  default     = "t2.micro"
+}
+Use code with caution.
+
+variable "instance_type": Declares an input variable named "instance_type".
+description: Provides a description of the variable.
+type: Specifies the type of value the variable expects (in this case, a string).
+default: Sets a default value if no specific value is provided during terraform apply. 
+2. Use the variable in main.tf:
+terraform
+resource "aws_instance" "example" {
+  instance_type = var.instance_type
+  # other configuration...
+}
+Use code with caution.
+
+instance_type = var.instance_type: References the value of the instance_type variable using the var. prefix. 
+3. Provide a variable value (optional): 
+You can provide a different value for the instance_type variable during terraform apply: 
+bash
+terraform apply -var="instance_type=t2.large"
+
+
+what is argument?
+
+In Terraform, arguments are settings you define within blocks to configure resources and other infrastructure elements. 
+Think of them as:
+Key-value pairs: attribute_name = value.
+Ingredients and instructions: They tell Terraform how to set up the resource.
+Defined within blocks: Like ami and instance_type in a resource "aws_instance" block. 
+Example:
+terraform
+resource "aws_instance" "example" {
+  ami           = "ami-0abcdef1234567890"  # This is an argument
+  instance_type = "t2.micro"             # This is an argument
+}
+
+
+
